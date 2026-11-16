@@ -1,0 +1,19 @@
+# Gizli bilgiler – ASLA depoya eklenmemeli
+.env
+.streamlit/secrets.toml
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Test çıktıları (büyük ve sık değişen dosyalar)
+tests/results/
+
+# Editör / işletim sistemi
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store
