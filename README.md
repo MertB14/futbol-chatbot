@@ -3,7 +3,7 @@
 Futbol hakkındaki soruları Türkçe yanıtlayan, LLM tabanlı bir soru-cevap asistanı.
 BM 445 – Üretken Yapay Zekâ ve Büyük Dil Modelleri dersi projesi.
 
-> ⚠️ **Durum:** Dokümantasyon aşaması. Kurulum ve kullanım bölümleri kod yazıldıkça güncellenecek.
+> ⚠️ **Durum:** Kod tamamlandı; gerçek API ile testler ve prompt v2 bekleniyor.
 
 ## Özellikler
 
