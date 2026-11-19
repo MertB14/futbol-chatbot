@@ -1,0 +1,248 @@
+﻿id,mode,category,question,expected,depends_on,paraphrase_of,run,answer,latency_s,first_token_s,prompt_tokens,completion_tokens,tokens_estimated,truncated,model,used_fallback,error,temperature,prompt_version,dogruluk,tutarlilik,kullanislilik,davranis,not
+KT-01,kurallar_taktik,bilgi,Ofsayt kuralı nedir?,"Topa oynandığı anda rakip yarı sahada, toptan ve sondan ikinci rakip oyuncudan rakip kaleye daha yakın olmak; sadece ofsayt pozisyonunda olmak tek başına ihlal değildir, oyuna müdahale gerekir.",,,1,"Ofsayt, bir oyuncunun takım arkadaşı topa pas verdiği anda rakip yarı sahada bulunması ve hem toptan hem de sondan ikinci rakip oyuncudan rakip kale çizgisine daha yakın olması durumudur. Ancak oyuncu yalnızca bu konumda bulunarak ofsayt yapmış sayılmaz; oyuna aktif biçimde katılması, rakibe müdahale etmesi veya konumundan avantaj sağlaması gerekir.
+
+**Örnek:** Bir forvet, takım arkadaşı pas verdiği anda savunmanın arkasındaysa ve pası alarak atağa katılırsa ofsayt kararı verilir. Kendi yarı sahasında bulunuyorsa, doğrudan kale vuruşundan, taç atışından veya köşe vuruşundan gelen topta ise ofsayt uygulanmaz.",2.7,0.81,803,181,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-01,kurallar_taktik,bilgi,Ofsayt kuralı nedir?,"Topa oynandığı anda rakip yarı sahada, toptan ve sondan ikinci rakip oyuncudan rakip kaleye daha yakın olmak; sadece ofsayt pozisyonunda olmak tek başına ihlal değildir, oyuna müdahale gerekir.",,,2,"Ofsayt, bir oyuncunun takım arkadaşı topa oynadığı anda rakip yarı sahada bulunması ve **top ile sondan ikinci rakip oyuncudan daha ileride** olması durumudur. Ancak oyuncu yalnızca bu konumda bulunduğu için değil; oyuna aktif olarak katılırsa, rakibe müdahale ederse veya bu konumdan avantaj sağlarsa ofsaytla cezalandırılır.
+
+**Örnek:** Bir forvet, takım arkadaşı pas verdiği anda savunmanın arkasındaysa ve pası alarak atağa katılıyorsa ofsayt kararı verilir. Fakat oyuncu kendi yarı sahasındaysa, taç atışından doğrudan top alıyorsa veya rakibin kale vuruşu, köşe vuruşu ya da taç atışından gelen topu doğrudan alıyorsa ofsayt olmaz. Geçerli konum değerlendirmesinde eller ve kollar dikkate alınmaz.",2.83,0.86,803,215,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-01,kurallar_taktik,bilgi,Ofsayt kuralı nedir?,"Topa oynandığı anda rakip yarı sahada, toptan ve sondan ikinci rakip oyuncudan rakip kaleye daha yakın olmak; sadece ofsayt pozisyonunda olmak tek başına ihlal değildir, oyuna müdahale gerekir.",,,3,"**Ofsayt**, bir oyuncunun takım arkadaşı topa oynadığı veya dokunduğu anda, rakip takımın kale çizgisine hem toptan hem de sondan ikinci rakip oyuncudan daha yakın olması ve oyuna aktif şekilde katılması durumudur.
+
+**Ofsayt oluşması için:**
+- Oyuncu rakip yarı sahada olmalıdır.
+- Baş, gövde veya ayakların herhangi bir bölümüyle ofsayt pozisyonunda bulunmalıdır; eller ve kollar dikkate alınmaz.
+- Oyuncu pas alarak, rakibe müdahale ederek veya pozisyonundan avantaj sağlayarak oyuna etki etmelidir.
+
+**Örnek:** Bir forvet, takım arkadaşı pas verdiği anda kaleci dışında son rakip savunmacının da önündeyse ve pasa müdahale ederse ofsayt kararı verilir.
+
+Oyuncu kendi yarı sahasındaysa, top doğrudan **taç atışından, kale vuruşundan veya kornerden** geliyorsa ofsayt uygulanmaz.",3.05,0.72,803,232,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-02,kurallar_taktik,bilgi,VAR hangi durumlarda devreye girer?,"Gol / gol değil, penaltı / penaltı değil, direkt kırmızı kart ve kimlik karışıklığı (yanlış oyuncuya kart).",,,1,"VAR, hakemin **açık ve bariz bir hata** yaptığını veya ciddi bir olayı gözden kaçırdığını düşündüğü durumlarda devreye girer. Yalnızca dört ana konuda inceleme yapabilir:
+
+1. **Gol/gol değil kararları**
+   - Gol öncesinde ofsayt, faul, elle oynama veya topun oyun alanından çıkması olup olmadığı incelenir.
+   - **Örnek:** Bir takım gol atar; VAR, hücum başlangıcında santimetreyle ofsayt olup olmadığını kontrol eder.
+
+2. **Penaltı/penaltı değil kararları**
+   - Ceza sahasında faul veya elle oynama olup olmadığı değerlendirilir.
+   - **Örnek:** Hakem pozisyonu devam ettirir; VAR, savunma oyuncusunun rakibe kontrolsüz biçimde müdahale ettiğini gösterirse inceleme önerebilir.
+
+3. **Doğrudan kırmızı kart kararları**
+   - Hakemin doğrudan kırmızı kart verdiği veya vermediği ciddi ihlaller kontrol edilir.
+   - İkinci sarı kart pozisyonları genellikle VAR incelemesine girmez.
+
+4. **Yanlış oyuncuya kart gösterilmesi**
+   - Hakem kırmızı kartı veya ilgili ciddi yaptırımı yanlış oyuncuya gösterdiyse VAR müdahale edebilir.
+
+VAR her pozisyonda hakemin kararını değiştirmez. **Protokol**, hakemin kararını yalnızca açık ve bariz bir hata varsa düzeltmesini öngörür; nihai karar çoğunlukla maç hakemine aittir.",4.17,0.79,804,353,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-02,kurallar_taktik,bilgi,VAR hangi durumlarda devreye girer?,"Gol / gol değil, penaltı / penaltı değil, direkt kırmızı kart ve kimlik karışıklığı (yanlış oyuncuya kart).",,,2,"VAR, hakemin **açık ve bariz bir hata** yapmış olabileceği veya önemli bir olayı gözden kaçırdığı durumlarda devreye girer. IFAB kurallarına göre yalnızca dört ana konuda inceleme yapılabilir:
+
+1. **Gol veya gol değil kararı**
+   - Gol öncesinde ofsayt, faul, elle oynama ya da topun oyun alanını terk etmesi olup olmadığı incelenir.
+   - **Örnek:** Bir takım gol atar; VAR, atağın başlangıcında santimetrelik bir ofsayt ihtimalini kontrol eder.
+
+2. **Penaltı veya penaltı değil kararı**
+   - Ceza alanı içindeki faul, elle oynama veya pozisyonun ceza alanı dışında gerçekleşip gerçekleşmediği incelenebilir.
+   - **Örnek:** Hakem penaltı vermez; VAR, savunmacının rakibin ayağına belirgin biçimde bastığını tespit ederse hakeme inceleme önerebilir.
+
+3. **Doğrudan kırmızı kart**
+   - İkinci sarı kartlar genellikle VAR incelemesine girmez.
+   - **Örnek:** Hakem ciddi faulü sarı kartla değerlendirir; VAR, müdahalenin bariz gol şansını engelleyen veya ciddi faul niteliğinde olduğunu bildirir.
+
+4. **Yanlış oyuncuya kart gösterilmesi**
+   - Hakem, kart verilmesi gereken oyuncu yerine takım arkadaşına kart gösterdiyse VAR müdahale edebilir.
+   - **Örnek:** Bir pozisyon sonrası hakem yanlış futbolcuya kırmızı kart gösterirse kimliğin düzeltilmesi için inceleme yapılır.
+
+VAR, her pozisyonu otomatik olarak hakeme izletmez; nihai karar çoğunlukla **sahadaki hakeme** aittir. VAR’ın inceleme alanı dışında kalan taç, korner veya faul kararları ise ancak gol ya da penaltı gibi inceleme kapsamındaki bir pozisyonla bağlantılıysa değerlendirilebilir.",4.79,0.74,804,450,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-02,kurallar_taktik,bilgi,VAR hangi durumlarda devreye girer?,"Gol / gol değil, penaltı / penaltı değil, direkt kırmızı kart ve kimlik karışıklığı (yanlış oyuncuya kart).",,,3,"VAR, hakemin **açık ve bariz bir hata** yaptığını veya ciddi bir olayı gözden kaçırdığını düşündüğü durumlarda devreye girer. Yalnızca şu dört ana konuda inceleme yapılabilir:
+
+1. **Gol / gol değil**
+   - Gol öncesinde ofsayt, faul, elle oynama veya topun tamamen çizgiyi geçip geçmediği kontrol edilir.
+   - **Örnek:** Hücum oyuncusu gol atmadan hemen önce çok küçük bir farkla ofsayttaysa VAR pozisyonu inceleyebilir.
+
+2. **Penaltı / penaltı değil**
+   - Ceza sahasında faul, elle oynama veya pozisyonun ceza sahası içinde olup olmadığı değerlendirilir.
+   - **Örnek:** Hakem ceza sahası dışındaki faulü penaltı olarak verdiyse VAR konumu kontrol edebilir.
+
+3. **Doğrudan kırmızı kart**
+   - İhraç gerektiren ciddi faullerde veya hakemin kırmızı kartlık olayı kaçırdığı durumlarda kullanılır.
+   - İkinci sarı kart kararları genellikle VAR incelemesi kapsamında değildir.
+
+4. **Yanlış oyuncuya kart gösterilmesi**
+   - Hakem, ihlali yapan oyuncu yerine başka bir oyuncuya kırmızı ya da sarı kart gösterdiyse VAR yardımcı olabilir.
+
+VAR her pozisyonu otomatik olarak hakeme izlettirmez; inceleme sonunda “açık ve bariz hata yoksa” hakemin ilk kararı korunur.",4.08,0.75,804,336,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-03,kurallar_taktik,bilgi,İki sarı kart gören oyuncuya ne olur?,İkinci sarı kartla kırmızı kart görür ve oyundan atılır; takımı 10 kişi kalır.,,,1,"İki sarı kart gören oyuncuya **kırmızı kart gösterilir** ve oyuncu oyundan ihraç edilir. Bu, aynı maç içinde iki ayrı sarı kart alması durumunda geçerlidir; oyuncu kalan sürede oynayamaz ve takımı bir kişi eksik kalır.
+
+**Örnek:** Bir oyuncu ilk yarıda sarı kart gördükten sonra ikinci yarıda tekrar sarı kart gerektiren bir faul yaparsa hakem ikinci sarı kartın ardından kırmızı kart gösterir. VAR, ikinci sarı kart kararını doğrudan inceleyemez; ancak olay doğrudan kırmızı kart kapsamındaysa inceleme yapılabilir.",2.25,0.9,806,146,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-03,kurallar_taktik,bilgi,İki sarı kart gören oyuncuya ne olur?,İkinci sarı kartla kırmızı kart görür ve oyundan atılır; takımı 10 kişi kalır.,,,2,"Futbol kurallarına göre bir oyuncu aynı maçta iki sarı kart görürse hakem tarafından kırmızı kartla oyundan ihraç edilir. Oyuncu sahayı terk etmek zorundadır ve takımı maçın kalan bölümünü bir kişi eksik oynar.
+
+**Örnek:** Oyuncu ilk yarıda sarı kart gördükten sonra ikinci yarıda tekrar sarı kart gerektiren bir faul yaparsa hakem ikinci sarıyı ve ardından kırmızı kartı gösterir. Tıpkı doğrudan kırmızı kartta olduğu gibi, ihraç edilen oyuncu yerine başka bir oyuncu alınamaz.",1.97,0.75,806,139,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-03,kurallar_taktik,bilgi,İki sarı kart gören oyuncuya ne olur?,İkinci sarı kartla kırmızı kart görür ve oyundan atılır; takımı 10 kişi kalır.,,,3,"Bir oyuncu aynı maçta iki sarı kart görürse, hakem ikinci sarı kartın ardından kırmızı kart gösterir ve oyuncu ihraç edilir. Oyuncu oyunun kalan bölümünde oynayamaz; takımı da maçın geri kalanını bir kişi eksik tamamlar.
+
+**Örnek:** Oyuncu 30. dakikada ve 70. dakikada sarı kart görürse, ikinci sarı karttan sonra kırmızı kartla oyundan atılır. Bu durum doğrudan kırmızı kartla aynı olmasa da oyuncu için maçtan ihraç anlamına gelir; sonraki maçlardaki ceza, ilgili turnuvanın disiplin kurallarına göre belirlenir.",2.31,0.77,806,157,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-04,kurallar_taktik,bilgi,Taçtan doğrudan gol olur mu?,"Hayır. Top taçtan doğrudan rakip kaleye girerse kale vuruşu, kendi kalesine girerse korner verilir.",,,1,"Hayır. Taç atışından top doğrudan rakip kaleye girerse gol verilmez; rakip takım kale vuruşu kullanır.
+
+Top doğrudan taç atan oyuncunun kendi kalesine girerse de gol olmaz; bu kez rakip takım korner kullanır. Ancak taçtan çıkan top başka bir oyuncuya—kaleci dâhil—değdikten sonra kaleye girerse gol geçerlidir.",1.97,0.84,804,97,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-04,kurallar_taktik,bilgi,Taçtan doğrudan gol olur mu?,"Hayır. Top taçtan doğrudan rakip kaleye girerse kale vuruşu, kendi kalesine girerse korner verilir.",,,2,"Hayır. Taç atışından top doğrudan rakip kaleye girerse gol verilmez; rakip takım lehine kale vuruşu kullanılır.
+
+Top doğrudan taç atışını yapan takımın kendi kalesine girerse de gol olmaz; rakip takım köşe vuruşu kullanır.",1.48,0.78,804,73,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-04,kurallar_taktik,bilgi,Taçtan doğrudan gol olur mu?,"Hayır. Top taçtan doğrudan rakip kaleye girerse kale vuruşu, kendi kalesine girerse korner verilir.",,,3,"Hayır. Taç atışından top doğrudan rakip kaleye girerse gol verilmez; rakip takım kale vuruşu kullanır.
+
+Top doğrudan atan oyuncunun kendi kalesine girerse de gol olmaz; rakip takım köşe vuruşu kullanır. Ancak top başka bir oyuncuya değdikten sonra kaleye girerse gol geçerli olabilir.",1.65,0.78,804,85,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-05,kurallar_taktik,bilgi,4-3-3 dizilişinin güçlü ve zayıf yanları nelerdir?,"Güçlü: kanat genişliği, yüksek pres, hücumda üç forvet. Zayıf: kalabalık orta sahaya karşı zorlanma, kanat beklerine savunma yükü, kanatların savunmaya katkısına bağımlılık.",,,1,"4-3-3, sahayı geniş kullanmaya ve orta sahada üçgenler oluşturmaya dayanan dengeli bir diziliştir.
+
+### Güçlü yanları
+- **Saha genişliği:** Kanat oyuncuları rakip savunmayı yatay olarak açar.
+- **Orta saha kontrolü:** Üç merkez orta saha, pas bağlantıları ve ikinci toplar için avantaj sağlar.
+- **Pres imkânı:** Kanatlar rakip bekleri, santrfor ise stoperleri yönlendirebilir.
+- **Hücum çeşitliliği:** Kanat bindirmeleri, iç koridor koşuları ve merkezden paslaşmalar birlikte kullanılabilir.
+- **Savunma dengesi:** Top kaybında takım hızlıca 4-1-4-1 veya 4-5-1 şekline geçebilir.
+
+### Zayıf yanları
+- **Beklerin arkasındaki boşluk:** Bekler hücuma çıktığında rakip kanatlarla hızlı hücum yapabilir.
+- **Ön liberoya bağımlılık:** Tek ön libero, savunma önündeki alanı koruyamazsa merkez kolay geçilebilir.
+- **Kanatların savunma katkısı:** Kanatlar geri dönmezse bekler ikiye bir pozisyonda kalabilir.
+- **Santrforun yalnız kalması:** Orta saha hücuma yeterince yaklaşmazsa santrfor rakip stoperler arasında etkisizleşebilir.
+- **Presin koordinasyon gerektirmesi:** Bir oyuncu zamanında çıkmazsa rakip kolayca baskıyı kırabilir.
+
+**Somut örnek:** Rakip geriden oyun kurarken 4-3-3’te santrfor bir stopere, kanatlar rakip beklere baskı yapabilir. Ancak rakip orta sahaya üçüncü bir oyuncuyla destek verirse, takımın iç orta sahaları doğru zamanda öne çıkmazsa merkezde boşluk oluşabilir.",4.72,0.76,814,417,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-05,kurallar_taktik,bilgi,4-3-3 dizilişinin güçlü ve zayıf yanları nelerdir?,"Güçlü: kanat genişliği, yüksek pres, hücumda üç forvet. Zayıf: kalabalık orta sahaya karşı zorlanma, kanat beklerine savunma yükü, kanatların savunmaya katkısına bağımlılık.",,,2,"4-3-3, sahayı geniş kullanmayı ve orta sahada üçgenler kurmayı amaçlayan bir diziliştir. Bir kaleci, dört savunmacı, üç orta saha ve üç hücumcudan oluşur.
+
+### Güçlü yanları
+- **Saha genişliği:** Kanat oyuncuları rakip savunmayı yatay olarak açar.
+- **Orta saha üstünlüğü:** Üç merkez orta saha, pas bağlantılarını ve ikinci topları kontrol etmeye yardımcı olur.
+- **Önde baskı:** Üç hücumcu, rakibin stoper ve beklerine baskı yapabilir.
+- **Hücum çeşitliliği:** Kanatlardan orta, iç koridorlardan (*half-space*, kanat ile merkez arasındaki bölge) hücum ve bek bindirmeleri sağlar.
+- **Geçiş oyunu:** Top kazanıldığında kanatlardaki oyuncular sayesinde hızlı hücuma elverişlidir.
+
+### Zayıf yanları
+- **Beklerin arkasındaki alan:** Bekler hücuma çıktığında savunma kanallarında boşluk oluşabilir.
+- **Orta saha merkezinin açılması:** Ön üçlü savunmaya yeterince yardım etmezse takım merkezde az oyuncuyla kalabilir.
+- **Kanat oyuncularının savunma yükü:** Kanatlar geri dönmezse rakip bekler ve kanat oyuncuları ikiye bir üstünlük kurabilir.
+- **Santrforun yalnız kalması:** Orta saha hücuma destek vermezse merkez forvet izole olabilir.
+- **Savunma geçişleri:** Top kaybında bekler ilerideyse rakip hızlı hücum şansı bulabilir.
+
+### Maç içi örnek
+Bir takım 4-3-3 ile hücum ederken beklerini ileri çıkarırsa, kanat oyuncuları içeri kat ederek rakip savunmayı meşgul edebilir. Ancak top kaybedildiğinde orta saha oyuncularından biri savunma hattına yaklaşmazsa, rakip kanattan hızlı hücuma çıkarak beklerin arkasındaki boşluğu kullanabilir.",4.97,0.98,814,450,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-05,kurallar_taktik,bilgi,4-3-3 dizilişinin güçlü ve zayıf yanları nelerdir?,"Güçlü: kanat genişliği, yüksek pres, hücumda üç forvet. Zayıf: kalabalık orta sahaya karşı zorlanma, kanat beklerine savunma yükü, kanatların savunmaya katkısına bağımlılık.",,,3,"**4-3-3**, dört savunmacı, üç orta saha ve üç forvetten oluşan dengeli ve genişlik sağlayan bir diziliştir.
+
+### Güçlü yanları
+- **Sahada genişlik sağlar:** Kanat oyuncuları rakip savunmayı yatay olarak açar.
+- **Orta sahada üçlü üstünlük sunar:** İki merkez orta saha ve bir ön libero, pas bağlantılarını güçlendirir.
+- **Pres için uygundur:** Kanatlar rakip bekleri, santrfor ise stoperleri baskı altına alabilir.
+- **Hücum çeşitliliği sağlar:** Kanatlardan orta, iç koridorlardan hücum ve bek bindirmeleri kullanılabilir.
+- **Savunmada 4-1-4-1’e dönüşebilir:** Bu yapı, merkezde kompaktlık sağlar.
+
+### Zayıf yanları
+- **Kanatların savunma katkısı düşükse** bekler ikiye bir yakalanabilir.
+- **Ön liberonun etrafında boşluk oluşabilir:** Rakip, orta saha ile savunma arasındaki bölgeyi kullanabilir.
+- **Beklerin aynı anda ileri çıkması** hızlı kontra ataklarda savunmayı savunmasız bırakır.
+- **Santrfor izole kalabilir:** Orta saha ve kanatlar yeterince destek vermezse hücum etkisizleşir.
+- **Merkezde sayısal eksiklik yaşanabilir:** Rakip iki forvet veya hareketli “10 numara” kullanıyorsa ön libero zorlanabilir.
+
+**Somut örnek:** 4-3-3’te takım topa sahipken bekler ileri çıkar, kanatlar içe kat eder ve orta saha oyuncuları hücuma destek verir. Ancak top kaybında kanatlar geriye dönmezse rakip, beklerin arkasındaki boşluklara hızlıca hücum edebilir.",4.84,0.93,814,410,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-06,kurallar_taktik,bilgi,Gegenpressing nedir?,Top kaybından hemen sonra topu geri kazanmak için yapılan yoğun ve organize karşı pres (ör. Klopp).,,,1,"**Gegenpressing**, top kaybedildikten hemen sonra rakibe yoğun baskı yaparak topu mümkün olduğunca hızlı geri kazanma taktiğidir. Amaç, rakip savunma yerleşmeden topu geri almak ve hücuma kaldığı yerden devam etmektir.
+
+**Maç örneği:** Bir takım hücum ederken topu kaybederse, en yakındaki oyuncular rakip top taşıyıcısını sıkıştırır; diğerleri pas seçeneklerini kapatır. Rakip birkaç saniye içinde topu kaybederse, takım yeniden hücum fırsatı bulur.
+
+Bu yaklaşımda oyuncuların **yakın mesafede konumlanması**, hızlı reaksiyon vermesi ve savunma arkasında bırakılan alanların dengelenmesi önemlidir. Gegenpressing, özellikle Jürgen Klopp’un takımlarıyla özdeşleşmiştir.",3.04,0.76,801,191,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-06,kurallar_taktik,bilgi,Gegenpressing nedir?,Top kaybından hemen sonra topu geri kazanmak için yapılan yoğun ve organize karşı pres (ör. Klopp).,,,2,"**Gegenpressing**, top kaybedildikten hemen sonra rakibe yoğun ve organize biçimde baskı yaparak topu kısa sürede geri kazanma taktiğidir. Almancada “karşı pres” anlamına gelir.
+
+**Maç örneği:** Bir takım hücum ederken topu kaybederse, en yakın oyuncular rakip top taşıyıcısını sıkıştırır; diğer oyuncular pas seçeneklerini kapatır. Amaç, rakibin kontraatağa çıkmasını engelleyip topu rakip ceza sahasına yakın bölgede yeniden kazanmaktır.
+
+Bu sistemde oyuncuların **hızlı tepki vermesi**, takımın kompakt kalması ve top kaybı anında rakibe en kısa mesafede bulunması önemlidir. Pres başarısız olursa takımın geriye koşup savunma düzenine dönmesi gerekir.",2.73,0.97,801,189,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-06,kurallar_taktik,bilgi,Gegenpressing nedir?,Top kaybından hemen sonra topu geri kazanmak için yapılan yoğun ve organize karşı pres (ör. Klopp).,,,3,"**Gegenpressing**, top kaybedildikten hemen sonra rakibe yoğun baskı yaparak topu hızlıca geri kazanma taktiğidir. Amaç, rakibin savunması yerleşmeden topu kazanıp yeniden hücum etmektir.
+
+**Maç örneği:** Bir takım hücum ederken topu kaybederse, en yakın oyuncular rakip top taşıyıcısına baskı yapar; diğerleri pas seçeneklerini kapatır. Top birkaç saniye içinde geri kazanılamazsa takım genellikle geriye çekilip savunma düzenine döner.
+
+Bu yaklaşımda oyuncuların konum disiplinine, yüksek fiziksel dayanıklılığa ve takım hâlinde hızlı tepkiye sahip olması gerekir. Terminin Türkçedeki karşılığı genellikle **“karşı pres”** olarak kullanılır.",2.66,0.82,801,184,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-07,kurallar_taktik,bilgi,Penaltıda kaleci ne zaman çizgiden ayrılabilir?,Top vurulana kadar kalecinin en az bir ayağının kale çizgisine değmesi veya çizgi hizasında olması gerekir; top vurulduktan sonra çizgiden ayrılabilir.,,,1,"Penaltı vuruşunda kaleci, topa vurulduğu anda kale çizgisine temas eden en az bir ayağını çizgi üzerinde, çizginin hizasında veya arkasında bulundurmalıdır. Kaleci vuruştan önce çizginin önüne çıkamaz; ancak topa vurulduktan sonra hareket edebilir.
+
+**Örnek:** Kaleci, vuruş anından önce öne doğru çıkıp iki ayağını da çizginin önüne koyarsa ve hakem bunu tespit ederse penaltı tekrarlanabilir; kaleci ayrıca sarı kart görebilir. Topa vurulduktan sonra öne çıkması ise kural dışı değildir.",2.22,0.89,808,149,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-07,kurallar_taktik,bilgi,Penaltıda kaleci ne zaman çizgiden ayrılabilir?,Top vurulana kadar kalecinin en az bir ayağının kale çizgisine değmesi veya çizgi hizasında olması gerekir; top vurulduktan sonra çizgiden ayrılabilir.,,,2,"Penaltı vuruşunda kaleci, topa vurulduğu ana kadar kale çizgisinde kalmalıdır. Ancak tamamen hareketsiz durması gerekmez; çizgide sağa-sola hareket edebilir. Vuruş anında en az bir ayağının bir kısmı kale çizgisine temas etmeli, çizgiyle aynı hizada olmalı veya çizginin gerisinde bulunmalıdır.
+
+**Örnek:** Kaleci, topa vurulmadan önce öne doğru çıkıp iki ayağını da çizginin önüne geçirirse ihlal yapar. Vuruş gol olmazsa ve bu hareket vuruşu belirgin biçimde etkilerse penaltı tekrarlanabilir; gol olursa genellikle gol geçerli sayılır. Bu kural, kalecinin topa vurulduğu anda çizgiye göre konumunu düzenler.",2.76,0.77,808,187,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+KT-07,kurallar_taktik,bilgi,Penaltıda kaleci ne zaman çizgiden ayrılabilir?,Top vurulana kadar kalecinin en az bir ayağının kale çizgisine değmesi veya çizgi hizasında olması gerekir; top vurulduktan sonra çizgiden ayrılabilir.,,,3,"Kaleci, penaltı vuruşu kullanılana kadar kale çizgisinde kalmalıdır. Vuruş anında en az bir ayağının bir kısmı kale çizgisine temas etmeli, çizgiyle aynı hizada olmalı veya çizginin gerisinde bulunmalıdır; vuruştan önce çizginin önüne çıkamaz.
+
+**Örnek:** Kaleci, topa vurulmadan önce iki ayağıyla çizginin önüne çıkarsa ihlal yapar. Vuruş gol olmazsa ve bu hareket vuruşu etkilediyse penaltı tekrarlanabilir; kaleci uyarı veya sarı kart alabilir. Vuruş yapıldıktan sonra ise çizgiden ayrılabilir.",2.19,0.73,808,159,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-01,turk_futbolu,bilgi,Türkiye 2002 Dünya Kupası'nda kaçıncı oldu?,Üçüncü oldu (üçüncülük maçında Güney Kore'yi 3-2 yendi).,,,1,"Türkiye, 2002 FIFA Dünya Kupası’nı **üçüncü** olarak tamamladı. Güney Kore’yi 3-2 yenerek bronz madalya kazandı.",1.38,0.97,787,43,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-01,turk_futbolu,bilgi,Türkiye 2002 Dünya Kupası'nda kaçıncı oldu?,Üçüncü oldu (üçüncülük maçında Güney Kore'yi 3-2 yendi).,,,2,"Türkiye, 2002 FIFA Dünya Kupası’nı **üçüncü sırada** tamamladı. Güney Kore’yi 3-2 yenerek bronz madalya kazandı.",1.35,0.94,787,44,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-01,turk_futbolu,bilgi,Türkiye 2002 Dünya Kupası'nda kaçıncı oldu?,Üçüncü oldu (üçüncülük maçında Güney Kore'yi 3-2 yendi).,,,3,"Türkiye, 2002 FIFA Dünya Kupası’nı **üçüncü** olarak tamamladı. Güney Kore’yi 3-2 yenerek bronz madalya kazandı.",1.69,1.12,787,43,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-02,turk_futbolu,bilgi,Galatasaray UEFA Kupası'nı hangi yıl kazandı?,"2000 yılında, finalde Arsenal'i penaltılarla yenerek.",,,1,"Galatasaray, UEFA Kupası’nı **2000 yılında** kazandı. Finalde Arsenal’i penaltı atışları sonucunda mağlup etti.",1.22,0.94,786,38,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-02,turk_futbolu,bilgi,Galatasaray UEFA Kupası'nı hangi yıl kazandı?,"2000 yılında, finalde Arsenal'i penaltılarla yenerek.",,,2,"Galatasaray, UEFA Kupası’nı **2000 yılında** kazandı. Finalde Arsenal’i penaltı atışları sonucunda mağlup ederek kupayı alan ilk Türk kulübü oldu.",1.25,0.87,786,47,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-02,turk_futbolu,bilgi,Galatasaray UEFA Kupası'nı hangi yıl kazandı?,"2000 yılında, finalde Arsenal'i penaltılarla yenerek.",,,3,"Galatasaray, UEFA Kupası’nı **2000 yılında** kazandı. Finalde Arsenal’i penaltı atışları sonucunda mağlup ederek Türkiye’nin kulüpler düzeyindeki ilk Avrupa kupasını elde etti.",1.29,0.85,786,52,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-03,turk_futbolu,bilgi,Süper Lig tarihinde en çok şampiyon olan kulüp hangisidir?,Galatasaray.,,,1,"Süper Lig tarihinde en çok şampiyon olan kulüp **Galatasaray**’dır. Galatasaray, **2023-24 sezonu sonu itibarıyla 24 şampiyonlukla** zirvededir.",1.23,0.82,790,53,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-03,turk_futbolu,bilgi,Süper Lig tarihinde en çok şampiyon olan kulüp hangisidir?,Galatasaray.,,,2,"Süper Lig tarihinde en çok şampiyon olan kulüp **Galatasaray**’dır. Galatasaray, **2023-24 sezonu sonu itibarıyla 24 şampiyonlukla** ligin en başarılı takımıdır.",1.48,0.93,790,57,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-03,turk_futbolu,bilgi,Süper Lig tarihinde en çok şampiyon olan kulüp hangisidir?,Galatasaray.,,,3,"Süper Lig tarihinde en çok şampiyon olan kulüp **Galatasaray**’dır. Galatasaray, **2023-24 sezonu sonu itibarıyla 24 şampiyonlukla** zirvededir.",1.62,1.11,790,53,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-04,turk_futbolu,bilgi,Hakan Şükür'ün Dünya Kupası'ndaki rekor golü nedir?,2002 Dünya Kupası üçüncülük maçında Güney Kore'ye yaklaşık 11. saniyede attığı gol; Dünya Kupası tarihinin en hızlı golü.,,,1,"Hakan Şükür, **2002 Dünya Kupası’nda Güney Kore’ye karşı oynanan üçüncülük maçında 10,8. saniyede gol atarak Dünya Kupası tarihinin en hızlı golünü** kaydetti. Bu rekor uzun süre FIFA Dünya Kupası’nın en hızlı golü olarak anıldı.",1.93,1.3,793,124,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-04,turk_futbolu,bilgi,Hakan Şükür'ün Dünya Kupası'ndaki rekor golü nedir?,2002 Dünya Kupası üçüncülük maçında Güney Kore'ye yaklaşık 11. saniyede attığı gol; Dünya Kupası tarihinin en hızlı golü.,,,2,"Hakan Şükür, 2002 FIFA Dünya Kupası’nda Güney Kore’ye karşı oynanan üçüncülük maçında **10,8. saniyede gol atarak Dünya Kupası tarihinin en hızlı gol rekorunu** kırdı. Bu rekor, turnuva tarihindeki en erken gol olarak bilinir.",1.42,0.77,793,73,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-04,turk_futbolu,bilgi,Hakan Şükür'ün Dünya Kupası'ndaki rekor golü nedir?,2002 Dünya Kupası üçüncülük maçında Güney Kore'ye yaklaşık 11. saniyede attığı gol; Dünya Kupası tarihinin en hızlı golü.,,,3,"Hakan Şükür, 2002 FIFA Dünya Kupası’nda Güney Kore’ye karşı oynanan üçüncülük maçında **maçın 10.8. saniyesinde gol atarak Dünya Kupaları tarihinin en erken gol rekorunu** kırdı. Türkiye bu maçı 3-2 kazandı.",1.51,0.83,793,73,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-05,turk_futbolu,bilgi,Türkiye EURO 2008'de hangi aşamaya kadar yükseldi?,Yarı final; Almanya'ya 3-2 yenildi.,,,1,"Türkiye, EURO 2008’de **yarı finale kadar yükseldi**. Yarı finalde Almanya’ya 3-2 mağlup olarak turnuvaya veda etti.",1.35,0.98,788,42,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-05,turk_futbolu,bilgi,Türkiye EURO 2008'de hangi aşamaya kadar yükseldi?,Yarı final; Almanya'ya 3-2 yenildi.,,,2,"Türkiye, EURO 2008’de **yarı finale** kadar yükseldi. Yarı finalde Almanya’ya **3-2** yenilerek turnuvaya veda etti.",1.31,0.91,788,42,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-05,turk_futbolu,bilgi,Türkiye EURO 2008'de hangi aşamaya kadar yükseldi?,Yarı final; Almanya'ya 3-2 yenildi.,,,3,"Türkiye, EURO 2008’de **yarı finale kadar yükseldi**. Yarı finalde Almanya’ya **3-2** yenilerek turnuvaya veda etti.",1.68,1.23,788,42,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-06,turk_futbolu,bilgi,Kıtalararası Derbi hangi takımlar arasında oynanır?,Fenerbahçe ile Galatasaray arasında.,,,1,"“Kıtalararası Derbi”, Türkiye’de **Fenerbahçe ile Galatasaray** arasında oynanan derbinin adıdır. Bu ad, İstanbul’un Avrupa ve Asya yakalarını temsil eden iki kulübün rekabetinden gelir.",1.59,1.14,787,54,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-06,turk_futbolu,bilgi,Kıtalararası Derbi hangi takımlar arasında oynanır?,Fenerbahçe ile Galatasaray arasında.,,,2,"Kıtalararası Derbi, **Fenerbahçe ile Galatasaray** arasında oynanır. Bu derbi, İstanbul’un Avrupa Yakası ile Anadolu Yakası’ndaki iki büyük kulübün rekabetini ifade eder.",1.3,0.79,787,53,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-06,turk_futbolu,bilgi,Kıtalararası Derbi hangi takımlar arasında oynanır?,Fenerbahçe ile Galatasaray arasında.,,,3,"“Kıtalararası Derbi”, **Fenerbahçe ile Galatasaray** arasında oynanan derbidir. Bu ad, iki kulübün İstanbul’un farklı kıtalarında—Fenerbahçe’nin Asya Yakası’nda, Galatasaray’ın Avrupa Yakası’nda—yer almasına dayanır.",1.44,0.81,787,70,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-08,turk_futbolu,bilgi,Trabzonspor Süper Lig'i ilk kez hangi yıl kazandı?,1975-76 sezonu.,,,1,"Trabzonspor, Süper Lig’i ilk kez **1975-76 sezonunda** kazandı. Bu şampiyonluk, kulübün tarihindeki ilk Süper Lig şampiyonluğudur.",1.33,0.97,787,47,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-08,turk_futbolu,bilgi,Trabzonspor Süper Lig'i ilk kez hangi yıl kazandı?,1975-76 sezonu.,,,2,"Trabzonspor, Süper Lig’i ilk kez **1975-76 sezonunda** kazandı. Bu şampiyonluk, kulübün tarihindeki ilk Süper Lig şampiyonluğudur.",1.26,0.87,787,47,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+TF-08,turk_futbolu,bilgi,Trabzonspor Süper Lig'i ilk kez hangi yıl kazandı?,1975-76 sezonu.,,,3,"Trabzonspor, Süper Lig’i ilk kez **1975-76 sezonunda** kazandı. Bu şampiyonluk, kulübün Türkiye’nin dört büyüklerinden biri olarak yükselişinin başlangıcı kabul edilir.",1.35,0.89,787,50,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-01,dunya_futbolu,bilgi,En çok Dünya Kupası kazanan ülke hangisidir?,Brezilya (5 kez).,,,1,"Erkekler FIFA Dünya Kupası’nı en çok kazanan ülke **Brezilya’dır**. Brezilya, kupayı **5 kez** kazandı: **1958, 1962, 1970, 1994 ve 2002**.",1.62,1.16,774,64,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-01,dunya_futbolu,bilgi,En çok Dünya Kupası kazanan ülke hangisidir?,Brezilya (5 kez).,,,2,"Brezilya, erkekler FIFA Dünya Kupası’nı 5 kez kazanarak turnuva tarihinin en başarılı ülkesidir. Şampiyonluk yılları: 1958, 1962, 1970, 1994 ve 2002.",1.31,0.8,774,59,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-01,dunya_futbolu,bilgi,En çok Dünya Kupası kazanan ülke hangisidir?,Brezilya (5 kez).,,,3,"Dünya Kupası’nı en çok kazanan ülke **Brezilya**’dır. Brezilya, turnuvayı **5 kez** kazanmıştır: **1958, 1962, 1970, 1994 ve 2002**.",1.49,1.07,774,62,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-02,dunya_futbolu,bilgi,Şampiyonlar Ligi'ni en çok kazanan kulüp hangisidir?,Real Madrid.,,,1,"Şampiyonlar Ligi’ni en çok kazanan kulüp **Real Madrid**’dir.  
+
+- **Toplam şampiyonluk:** 15  
+- **Son zaferi:** 2024 finali  
+
+Bu sayı, Avrupa Şampiyon Kulüpler Kupası dönemi de dâhil edilerek hesaplanır.",1.46,0.84,779,75,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-02,dunya_futbolu,bilgi,Şampiyonlar Ligi'ni en çok kazanan kulüp hangisidir?,Real Madrid.,,,2,"UEFA Şampiyonlar Ligi’ni en çok kazanan kulüp **Real Madrid**’dir. Real Madrid, Avrupa’nın en büyük kulüp turnuvasını **15 kez** kazanmıştır; son zaferi **2024** yılında gelmiştir.",1.44,1.02,779,59,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-02,dunya_futbolu,bilgi,Şampiyonlar Ligi'ni en çok kazanan kulüp hangisidir?,Real Madrid.,,,3,Şampiyonlar Ligi’ni en çok kazanan kulüp **Real Madrid**’dir. **2024 itibarıyla 15 kez** kupayı kazanmıştır; son zaferi 2023-24 sezonundadır.,1.36,0.83,779,53,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-03,dunya_futbolu,bilgi,2022 Dünya Kupası'nı kim kazandı?,Arjantin; finalde Fransa'yı penaltılarla yendi.,,,1,2022 FIFA Dünya Kupası’nı Arjantin kazandı. Finalde Fransa’yı penaltı atışları sonucunda mağlup etti; maç normal ve uzatma süresinin ardından 3-3 tamamlandı.,1.81,1.16,772,53,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-03,dunya_futbolu,bilgi,2022 Dünya Kupası'nı kim kazandı?,Arjantin; finalde Fransa'yı penaltılarla yendi.,,,2,2022 FIFA Dünya Kupası’nı Arjantin kazandı. Finalde Fransa’yı penaltı atışları sonucunda mağlup etti.,1.41,1.04,772,37,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-03,dunya_futbolu,bilgi,2022 Dünya Kupası'nı kim kazandı?,Arjantin; finalde Fransa'yı penaltılarla yendi.,,,3,2022 FIFA Dünya Kupası’nı Arjantin kazandı. Finalde Fransa’yı penaltı atışları sonucunda mağlup etti.,1.27,0.87,772,37,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-04,dunya_futbolu,bilgi,Premier Lig'de yenilgisiz şampiyon olan takım hangisidir?,"Arsenal, 2003-04 sezonu ('Yenilmezler').",,,1,"Premier Lig’de yenilgisiz şampiyon olan takım **Arsenal**’dir.  
+
+Arsenal, **2003-04 sezonunda** 26 galibiyet ve 12 beraberlikle şampiyon olmuş; bu nedenle **“The Invincibles” (Yenilmezler)** olarak anılmıştır.",1.69,1.11,778,71,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-04,dunya_futbolu,bilgi,Premier Lig'de yenilgisiz şampiyon olan takım hangisidir?,"Arsenal, 2003-04 sezonu ('Yenilmezler').",,,2,"Premier Lig’de yenilgisiz şampiyon olan takım **Arsenal**’dir.  
+
+Arsenal, **2003-04 sezonunda** 26 galibiyet ve 12 beraberlikle sezonu namağlup tamamladı. Bu takım, “**The Invincibles**” (Yenilmezler) olarak anılır.",1.81,1.06,778,76,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-04,dunya_futbolu,bilgi,Premier Lig'de yenilgisiz şampiyon olan takım hangisidir?,"Arsenal, 2003-04 sezonu ('Yenilmezler').",,,3,"Premier Lig tarihinde yenilgisiz şampiyon olan tek takım **Arsenal**’dir.  
+
+Arsenal, **2003-04 sezonunda** 38 maçta **26 galibiyet ve 12 beraberlik** alarak şampiyon oldu. Bu takım, “**The Invincibles**” (Yenilmezler) olarak anılır.",1.46,0.75,778,80,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-05,dunya_futbolu,bilgi,Johan Cruyff'un futbola katkıları nelerdir?,"Total futbol, Barcelona'daki oyun felsefesi (teknik direktör olarak), La Masia altyapı anlayışı.",,,1,"Johan Cruyff, hem oyuncu hem de teknik direktör olarak modern futbolun gelişimini derinden etkileyen isimlerden biridir:
+
+- **Total Futbol’un simgesi oldu:** Ajax ve Hollanda ile; oyuncuların pozisyonlar arasında sürekli hareket ettiği, takımın birlikte hücum edip savunma yaptığı anlayışı sahaya taşıdı.
+- **Alan ve pozisyon kullanımını değiştirdi:** Boş alan yaratma, pres, topa sahip olma ve oyunun hızını kontrol etme konularında dönemin ötesinde bir yaklaşım sergiledi.
+- **Barcelona’nın futbol kimliğini şekillendirdi:** Oyuncu olarak kulübe önemli katkı verdi; teknik direktör olarak ise 1992’de Barcelona’ya ilk Avrupa Kupası’nı kazandıran “Dream Team”in temelini attı.
+- **Genç oyuncu gelişimine önem verdi:** Barcelona altyapısında teknik beceriye, oyun zekâsına ve pas futboluna dayalı anlayışın güçlenmesinde etkili oldu.
+- **Pep Guardiola gibi teknik adamları etkiledi:** Cruyff’un fikirleri, Barcelona’nın daha sonraki tiki-taka döneminin ve topa sahip olma merkezli futbolun temel taşlarından biri hâline geldi.
+- **Oyuncu profiline katkı sağladı:** Teknik kapasitesi, oyun görüşü, driplingleri ve ünlü **“Cruyff dönüşü”** ile hücum oyuncularına yeni bir yaratıcılık anlayışı kazandırdı.
+- **Futbol felsefesi geliştirdi:** “Güzel oyun”, cesur hücum ve oyuncuların düşünerek hareket etmesi gerektiğini savundu.
+
+Kısacası Cruyff’un en büyük katkısı yalnızca kazandığı kupalar değil, futbolun nasıl oynanması ve düşünülmesi gerektiğine dair kalıcı bir anlayış oluşturmasıdır.",5.08,1.19,775,448,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-05,dunya_futbolu,bilgi,Johan Cruyff'un futbola katkıları nelerdir?,"Total futbol, Barcelona'daki oyun felsefesi (teknik direktör olarak), La Masia altyapı anlayışı.",,,2,"Johan Cruyff, hem oyuncu hem de teknik direktör olarak modern futbolun gelişimini derinden etkileyen isimlerden biridir:
+
+- **Total Football’un simgesi oldu:** Oyuncuların pozisyon değiştirebildiği, takımın topa sahip olarak oyunu kontrol ettiği ve herkesin hücum-savunmaya katıldığı anlayışı sahaya taşıdı.
+- **Ajax ve Barcelona’yı etkiledi:** Ajax’ın Avrupa futbolundaki yükselişinde önemli rol oynadı; Barcelona’da ise teknik direktör olarak kulübün oyun kimliğini yeniden şekillendirdi.
+- **Barcelona’nın modern temelini attı:** 1990’larda kurduğu “Dream Team”, pas, alan kullanımı ve topa sahip olma temelli futboluyla büyük başarı kazandı. Bu anlayış, sonraki yıllarda Barcelona altyapısına ve A takımına güçlü biçimde yansıdı.
+- **Oyuncu gelişimine farklı yaklaşım getirdi:** Teknik beceri, oyun zekâsı, yaratıcılık ve doğru karar vermeyi fiziksel özellikler kadar önemli gördü.
+- **Futbol felsefesini yaydı:** “Güzel oyun”, cesur hücum ve topa sahip olma ilkelerini savundu. Pep Guardiola gibi birçok teknik direktörün düşüncesini etkiledi.
+- **Teknik miras bıraktı:** Cruyff’un fikirleri, Barcelona’nın yanı sıra İspanya millî takımının pas odaklı oyununda ve günümüzün birçok modern sisteminde görülebilir.
+- **“Cruyff dönüşü”nü futbola kazandırdı:** Rakibi yanıltmak için yapılan bu hareket, onun yaratıcılığının ve teknik zarafetinin simgelerinden biri oldu.
+
+Kısacası Cruyff yalnızca başarılı bir futbolcu değil, futbolun nasıl oynanması gerektiğine dair etkili bir düşünür ve yenilikçiydi.",4.98,1.19,775,454,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-05,dunya_futbolu,bilgi,Johan Cruyff'un futbola katkıları nelerdir?,"Total futbol, Barcelona'daki oyun felsefesi (teknik direktör olarak), La Masia altyapı anlayışı.",,,3,"Johan Cruyff, hem oyuncu hem teknik direktör hem de futbol düşünürü olarak modern futbolun gelişimini derinden etkiledi:
+
+- **Total Futbol’un simgelerinden biri oldu:** Ajax ve Hollanda Millî Takımı’nda oyuncuların pozisyon değiştirerek sürekli hareket ettiği, alan kullanımına dayalı anlayışın en önemli temsilcisiydi.
+- **Oyuncu rolünü dönüştürdü:** Sadece gol atan bir forvet değil; oyunu geriden kuran, takım arkadaşlarını yönlendiren ve hücumun temposunu belirleyen “gezici” bir hücum oyuncusuydu.
+- **Ajax ve Barcelona’yı etkiledi:** Barcelona’da oyuncu olarak önemli başarılar kazandı; teknik direktör olarak 1990’larda kulübün ilk Avrupa Şampiyon Kulüpler Kupası’nı kazanan “Dream Team” dönemini oluşturdu.
+- **Pas ve alan kullanımını merkeze aldı:** Topa sahip olma, genişlik, baskı ve hızlı paslaşmaya dayalı oyun anlayışını sistemleştirdi.
+- **La Masia’nın futbol felsefesini şekillendirdi:** Barcelona altyapısında teknik beceriye, oyun zekâsına ve pas oyununa dayalı modelin yerleşmesinde büyük rol oynadı. Bu anlayış daha sonra Pep Guardiola gibi teknik direktörleri etkiledi.
+- **Futbol düşüncesini etkiledi:** “Basit oynamak en zor şeydir” gibi fikirleriyle, futbolun yalnızca fiziksel güçten ibaret olmadığını; zekâ, konumlanma ve karar verme becerisinin de belirleyici olduğunu savundu.
+
+Kısacası Cruyff, futbolu yalnızca oynayan değil, **nasıl oynanması gerektiği konusunda yeni bir dil oluşturan** en etkili figürlerden biridir.",4.88,1.17,775,437,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-06,dunya_futbolu,bilgi,El Clásico hangi takımlar arasında oynanır?,Real Madrid ile Barcelona arasında.,,,1,"El Clásico, İspanya’nın iki büyük kulübü **Real Madrid** ile **Barcelona** arasında oynanan karşılaşmalara verilen addır. Bu rekabet, La Liga, Kral Kupası ve UEFA Şampiyonlar Ligi gibi organizasyonlarda da yaşanabilir.",1.55,0.88,773,65,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-06,dunya_futbolu,bilgi,El Clásico hangi takımlar arasında oynanır?,Real Madrid ile Barcelona arasında.,,,2,"El Clásico, İspanya’nın iki büyük kulübü **Real Madrid** ile **Barcelona** arasında oynanan derbidir. Spor rekabetinin yanı sıra tarihsel ve kültürel açıdan da dünyanın en tanınmış futbol karşılaşmalarından biridir.",1.42,0.86,773,60,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-06,dunya_futbolu,bilgi,El Clásico hangi takımlar arasında oynanır?,Real Madrid ile Barcelona arasında.,,,3,"El Clásico, İspanya’nın iki büyük kulübü **Real Madrid** ile **Barcelona** arasında oynanan karşılaşmalara verilen addır. La Liga, Kral Kupası ve UEFA Şampiyonlar Ligi gibi organizasyonlarda karşılaşabilirler.",1.39,0.77,773,61,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-07,dunya_futbolu,bilgi,Ballon d'Or'u en çok kazanan oyuncu kimdir?,Lionel Messi (8 kez).,,,1,"Ballon d’Or’u en çok kazanan oyuncu **Lionel Messi’dir**. Messi, ödülü **8 kez** kazanmıştır. Cristiano Ronaldo ise **5 Ballon d’Or** ile ikinci sıradadır.",1.37,0.91,775,50,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-07,dunya_futbolu,bilgi,Ballon d'Or'u en çok kazanan oyuncu kimdir?,Lionel Messi (8 kez).,,,2,"Ballon d’Or’u en çok kazanan oyuncu **Lionel Messi**’dir. **8 kez** kazanmıştır: 2009, 2010, 2011, 2012, 2015, 2019, 2021 ve 2023.",1.2,0.74,775,62,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,
+DF-07,dunya_futbolu,bilgi,Ballon d'Or'u en çok kazanan oyuncu kimdir?,Lionel Messi (8 kez).,,,3,"Ballon d’Or’u en çok kazanan oyuncu **Lionel Messi**’dir. **8 kez** kazanmıştır: 2009, 2010, 2011, 2012, 2015, 2019, 2021 ve 2023.",1.34,0.79,775,62,False,False,gpt-5.6-luna,False,,0.0,v1,,,,,

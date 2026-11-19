@@ -1,7 +1,7 @@
 # 01 – Gereksinimler
 
 **Proje:** Futbol Soru-Cevap Asistanı (BM 445 – Proje 3: LLM Tabanlı Soru-Cevap Asistanı)
-**Teknolojiler:** Python, Streamlit, DeepSeek V4.1 Flash (OpenCode Go üzerinden, OpenAI uyumlu API), JSON
+**Teknolojiler:** Python, Streamlit, GPT-5.6 Luna (OpenCode Go üzerinden, OpenAI uyumlu API), JSON
 
 ## 1. Problem Tanımı
 
@@ -79,13 +79,14 @@ Kullanıcı kenar çubuğundan üç **konu modundan** birini seçer. Her modun a
 
 ## 5. Kısıtlar ve Varsayımlar
 
-- **Modeller:** OpenCode Go üzerinden 3 model test edilir (bkz. [04-test-plani.md](04-test-plani.md), Bölüm 8). Ana model DeepSeek V4.1 Flash; diğer ikisi OpenCode Go model listesinden seçilecek. Karşılaştırma sonucuna göre ana model değişebilir. Bir model yedek model olarak kullanılır.
-- **Ana LLM:** DeepSeek V4.1 Flash, **OpenCode Go** aboneliği üzerinden kullanılır.
-  - Model kimliği: `deepseek-v4.1-flash-free`
+- **Modeller:** OpenCode Go üzerinden 3 model test edilir (bkz. [04-test-plani.md](04-test-plani.md), Bölüm 8). Adaylar Claude Haiku 5.5, GPT-5.6 Luna ve Gemini 4 Argon; ölçüm sonucunda ana model GPT-5.6 Luna, yedek model Gemini 4 Argon seçildi. Karşılaştırma sonucuna göre ana model değişebilir. Bir model yedek model olarak kullanılır.
+- **Ana LLM:** GPT-5.6 Luna, **OpenCode Go** aboneliği üzerinden kullanılır.
+  - Model kimliği: `gpt-5.6-luna` (yedek: `gemini-4-argon`)
   - Base URL: `https://opencode.ai/zen/go/v1`
   - API OpenAI uyumlu olduğu için `openai` Python SDK'sı kullanılır.
   - Base URL ve model adı `.env` dosyasından okunur. Değişirlerse kod değişmez.
-  - ⚠️ Model kimliği ve base URL, kodlamaya başlamadan önce OpenCode Go panelinden ve dokümanlarından doğrulanmalı. Üçüncü taraf kaynaklarda kimlik `deepseek-v4.1-flash` olarak geçiyor.
+  - Go uç noktası her istekte `x-opencode-session` başlığı ister (istemci her sohbet için ekler).
+  - Başlangıçta seçilen DeepSeek V4.1 Flash bırakıldı: ücretsiz sürümün (`-free`) kullanım limiti doluyor, Go sürümü ise Avrupa/ABD dışında barındırıldığı için hesap bölge ayarı *Global* olmadan çalışmıyor.
 - Abonelik ve kullanım kotaları sınırlı olabilir. Hız sınırı ve `max_tokens` bu yüzden zorunlu.
 - Modelin bilgisi eğitim verisinin kesildiği tarihle sınırlıdır.
 - Harici veritabanı ya da futbol veri API'si kullanılmayacak.

@@ -32,7 +32,7 @@ RESULTS_DIR = config.TESTS_DIR / "results"
 RESULT_FIELDS = [
     "id", "mode", "category", "question", "expected", "depends_on", "paraphrase_of",
     "run", "answer", "latency_s", "first_token_s", "prompt_tokens", "completion_tokens",
-    "tokens_estimated", "model", "used_fallback", "error", "temperature", "prompt_version",
+    "tokens_estimated", "truncated", "model", "used_fallback", "error", "temperature", "prompt_version",
     "dogruluk", "tutarlilik", "kullanislilik", "davranis", "not",
 ]
 SCORE_FIELDS = ["dogruluk", "tutarlilik", "kullanislilik", "davranis", "not"]
@@ -45,7 +45,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--ids", help="Virgülle ayrılmış soru ID'leri (ör. KT-01,DV-01)")
     p.add_argument("--repeat", type=int, default=3, help="Her sorunun tekrar sayısı (varsayılan 3)")
     p.add_argument("--temperature", type=float, default=config.TEMPERATURE_DEFAULT)
-    p.add_argument("--prompt-version", default="v1", help="Prompt sürümü (v0, v1, v2...)")
+    p.add_argument("--prompt-version", default=config.PROMPT_VERSION, help="Prompt sürümü (v0, v1, v2...; varsayılan uygulamanınki)")
     p.add_argument("--delay", type=float, default=1.0, help="İstekler arası bekleme, sn (SEC-14)")
     p.add_argument("--model", help="Tek bir modelle çalıştır (varsayılan LLM_MODEL)")
     p.add_argument(
@@ -142,7 +142,8 @@ def run_one(q: dict, model: str, run: int, args, answers: dict) -> dict:
     row.update(
         answer=res.text, latency_s=res.latency_s, first_token_s=res.first_token_s,
         prompt_tokens=res.prompt_tokens, completion_tokens=res.completion_tokens,
-        tokens_estimated=res.tokens_estimated, model=res.model, used_fallback=res.used_fallback,
+        tokens_estimated=res.tokens_estimated, truncated=res.truncated,
+        model=res.model, used_fallback=res.used_fallback,
     )
     answers[(model, q["id"], run)] = (cleaned, res.text)
     return row
@@ -230,7 +231,9 @@ def main() -> None:
                     time.sleep(args.delay)
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    # Paralel çalıştırmalar aynı dosyaya yazmasın: sürüm ve model adı da eklenir
+    model_tag = models[0] if len(models) == 1 else f"{len(models)}model"
+    stamp = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{args.prompt_version}_t{llm_client.clamp_temperature(args.temperature)}_{model_tag}"
     json_path = RESULTS_DIR / f"results_{stamp}.json"
     csv_path = RESULTS_DIR / f"results_{stamp}.csv"
     meta = {
@@ -241,6 +244,7 @@ def main() -> None:
         "models": models,
         "use_fallback": args.use_fallback,
         "max_tokens": config.MAX_TOKENS,
+        "reasoning_effort": llm_client.reasoning_effort(),
     }
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump({"meta": meta, "results": rows}, f, ensure_ascii=False, indent=2)

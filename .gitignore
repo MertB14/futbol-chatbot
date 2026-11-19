@@ -8,8 +8,7 @@ __pycache__/
 .venv/
 venv/
 
-# Test çıktıları (büyük ve sık değişen dosyalar)
-tests/results/
+# Test çıktıları: sonuçlar rapora kanıt olarak depoda tutulur (~5 MB); loglar tutulmaz
 
 # Editör / işletim sistemi
 .vscode/
@@ -17,3 +16,6 @@ tests/results/
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Test çalıştırma logları
+tests/logs/

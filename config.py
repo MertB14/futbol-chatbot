@@ -50,7 +50,7 @@ EXAMPLE_QUESTIONS = {
     ],
 }
 
-PROMPT_VERSION = "v1"  # Uygulamanın kullandığı prompt sürümü (05, Bölüm 6)
+PROMPT_VERSION = "v2"  # Uygulamanın kullandığı prompt sürümü (05, Bölüm 6–7)
 MAX_HISTORY = 10  # Modele gönderilen son mesaj sayısı (NFR-06, SEC-12)
 
 # --- Temperature (FR-12) ---
@@ -84,3 +84,17 @@ def env(name: str, default: str = "") -> str:
 def env_list(name: str) -> list[str]:
     """Virgülle ayrılmış ortam değişkenini listeye çevirir."""
     return [x.strip() for x in env(name).split(",") if x.strip()]
+
+
+def available_models() -> list[str]:
+    """Arayüzde seçilebilecek modeller (izin listesi).
+
+    LLM_MODELS tanımlıysa o kullanılır; değilse ana, yedek ve karşılaştırma
+    modellerinden tekrarsız bir liste oluşturulur. İlk eleman varsayılandır.
+    """
+    models = env_list("LLM_MODELS") or [
+        env("LLM_MODEL", "gpt-5.6-luna"),
+        env("LLM_FALLBACK_MODEL"),
+        *env_list("LLM_COMPARE_MODELS"),
+    ]
+    return list(dict.fromkeys(m for m in models if m))

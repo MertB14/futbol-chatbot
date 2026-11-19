@@ -6,6 +6,7 @@
 import logging
 import os
 import time
+import uuid
 
 import streamlit as st
 
@@ -25,12 +26,14 @@ def _load_streamlit_secrets() -> None:
         secrets = dict(st.secrets)
     except Exception:  # secrets.toml yoksa hata verir
         return
-    for name in ("OPENCODE_API_KEY", "LLM_BASE_URL", "LLM_MODEL", "LLM_FALLBACK_MODEL"):
+    for name in ("OPENCODE_API_KEY", "LLM_BASE_URL", "LLM_MODEL", "LLM_FALLBACK_MODEL", "LLM_MODELS", "LLM_REASONING_EFFORT"):
         if name in secrets and not os.environ.get(name):
             os.environ[name] = str(secrets[name])
 
 
 _load_streamlit_secrets()
+
+MODEL_OPTIONS = config.available_models()  # Seçilebilir modeller (izin listesi)
 
 
 # --- Oturum durumu ---
@@ -39,8 +42,10 @@ def _init_state() -> None:
         "messages": [],  # [{"role", "content", "meta"?}]
         "mode": config.DEFAULT_MODE,
         "temperature": config.TEMPERATURE_DEFAULT,
+        "model": MODEL_OPTIONS[0],
         "request_times": [],
         "chat_id": 0,  # Sohbet temizlenince artar; geri bildirim anahtarlarını sıfırlar
+        "session_id": str(uuid.uuid4()),  # Sağlayıcıya giden sohbet kimliği
         "toast": None,
     }
     for key, value in defaults.items():
@@ -51,6 +56,7 @@ def _init_state() -> None:
 def _reset_chat() -> None:
     st.session_state.messages = []
     st.session_state.chat_id += 1
+    st.session_state.session_id = str(uuid.uuid4())
 
 
 def _on_mode_change() -> None:  # FR-06
@@ -96,10 +102,16 @@ def _render_assistant_meta(i: int, meta: dict) -> None:
     st.caption(_meta_caption(meta))
     if meta.get("used_fallback"):
         st.caption("ℹ️ Ana model yanıt vermediği için yedek model kullanıldı.")  # FR-16
+    if meta.get("truncated"):
+        st.caption("✂️ Cevap uzunluk sınırına ulaştığı için kesildi. Soruyu daraltmayı dene.")
     st.feedback("thumbs", key=_feedback_key(i))
 
 
 _init_state()
+
+# .env değişip seçili model listeden çıktıysa varsayılana dön
+if st.session_state.model not in MODEL_OPTIONS:
+    st.session_state.model = MODEL_OPTIONS[0]
 
 if st.session_state.toast:
     st.toast(st.session_state.toast)
@@ -127,6 +139,14 @@ with st.sidebar:
         key="temperature",
     )
     st.caption("Düşük: daha tutarlı · Yüksek: daha yaratıcı")
+
+    st.selectbox(
+        "AI modeli",
+        options=MODEL_OPTIONS,
+        key="model",
+        disabled=len(MODEL_OPTIONS) < 2,
+        help="Liste .env dosyasındaki LLM_MODELS değişkeninden gelir.",
+    )
 
     up, down = _feedback_summary()
     st.markdown(f"**Bu oturum:** 👍 {up} · 👎 {down}")
@@ -201,7 +221,9 @@ if raw_question is not None:
                     system_prompt,
                     api_messages,
                     temperature=st.session_state.temperature,
+                    model=st.session_state.model,
                     on_token=on_token,
+                    session_id=st.session_state.session_id,
                 )
             except llm_client.LLMError as exc:
                 placeholder.empty()
@@ -222,6 +244,7 @@ if raw_question is not None:
                             "prompt_tokens": res.prompt_tokens,
                             "completion_tokens": res.completion_tokens,
                             "tokens_estimated": res.tokens_estimated,
+                            "truncated": res.truncated,
                         },
                     }
                 )

@@ -6,7 +6,7 @@ Bu doküman NFR-09 gereksiniminin ayrıntılarını içerir. Teknik güvenlik ö
 
 | ID | Önlem |
 |---|---|
-| ETK-01 | **Üçüncü taraf bildirimi:** Kullanıcının mesajları cevap üretmek için OpenCode Go üzerinden DeepSeek modeline gönderilir. Arayüzde bu açıkça belirtilir: *"Mesajların yanıt üretmek için üçüncü taraf bir yapay zekâ servisine gönderilir. Kişisel bilgilerini (ad, telefon, adres vb.) paylaşma."* |
+| ETK-01 | **Üçüncü taraf bildirimi:** Kullanıcının mesajları cevap üretmek için OpenCode Go üzerinden seçili yapay zekâ modeline gönderilir. Arayüzde bu açıkça belirtilir: *"Mesajların yanıt üretmek için üçüncü taraf bir yapay zekâ servisine gönderilir. Kişisel bilgilerini (ad, telefon, adres vb.) paylaşma."* |
 | ETK-02 | **Veri saklamama:** Uygulama kullanıcı mesajlarını diske, veritabanına ya da loglara kaydetmez. Sohbet ve 👍/👎 geri bildirimleri yalnızca tarayıcı oturumu süresince bellekte (`st.session_state`) tutulur ve sayfa kapanınca silinir (SEC-16, FR-14). |
 | ETK-03 | **Sağlayıcı politikası:** Verilerin sağlayıcı tarafında nasıl işlendiği ve saklandığı OpenCode'un gizlilik politikasına bağlıdır. Bu politika rapor yazılırken incelenir ve sınırlılıklar bölümünde belirtilir. |
 | ETK-04 | **Kişiler hakkında bilgi:** Model, oyuncuların, teknik direktörlerin ve hakemlerin yalnızca kamuya açık futbol kariyerleri hakkında konuşur. Özel hayat, sağlık, aile ve doğrulanmamış iddialar hakkında spekülasyon yapmaz (sistem promptu – Etik bölümü). |

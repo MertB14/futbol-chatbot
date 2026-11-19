@@ -6,7 +6,9 @@ OpenCode Go OpenAI uyumlu bir API sunduğu için `openai` SDK'sı `base_url` ile
 from __future__ import annotations
 
 import logging
+import re
 import time
+import uuid
 from dataclasses import dataclass
 from typing import Callable
 
@@ -57,6 +59,7 @@ class ChatResult:
     prompt_tokens: int | None
     completion_tokens: int | None
     tokens_estimated: bool  # Sağlayıcı usage döndürmezse True
+    truncated: bool = False  # max_tokens sınırına takıldı (finish_reason == "length")
 
 
 class _PartialStreamError(Exception):
@@ -75,7 +78,8 @@ def _mask(text: str) -> str:
     key = env("OPENCODE_API_KEY")
     if key and len(key) >= 6:
         text = text.replace(key, key[:3] + "***")
-    return text
+    # Sağlayıcı hata mesajlarındaki hesap kimliği (ör. konsol bağlantısındaki org_...)
+    return re.sub(r"org_[A-Za-z0-9]+", "org_***", text)
 
 
 def _get_client() -> OpenAI:
@@ -92,13 +96,15 @@ def _get_client() -> OpenAI:
             base_url=base_url,
             timeout=REQUEST_TIMEOUT_S,
             max_retries=1,  # SEC-13
+            # OpenCode Go uç noktası bu başlık olmadan isteği 400 ile reddeder.
+            default_headers={"x-opencode-session": str(uuid.uuid4())},
         )
         _client_key = (api_key, base_url)
     return _client
 
 
 def default_model() -> str:
-    return env("LLM_MODEL", "deepseek-v4.1-flash-free")
+    return env("LLM_MODEL", "gpt-5.6-luna")
 
 
 def fallback_model() -> str:
@@ -123,10 +129,16 @@ def _classify(exc: Exception) -> str:
         return exc.kind
     if isinstance(exc, (openai.APITimeoutError, openai.APIConnectionError)):
         return "timeout"
-    if isinstance(exc, (openai.AuthenticationError, openai.PermissionDeniedError, openai.NotFoundError)):
-        return "auth"  # Geçersiz anahtar veya yanlış model adı: yapılandırma sorunu
+    if isinstance(
+        exc,
+        (openai.AuthenticationError, openai.PermissionDeniedError, openai.NotFoundError, openai.BadRequestError),
+    ):
+        # Geçersiz anahtar, yanlış model adı, bölge kısıtı vb.: tekrar denemek düzeltmez
+        return "auth"
     if isinstance(exc, openai.RateLimitError):
         return "quota"
+    if isinstance(exc, openai.APIStatusError) and exc.status_code == 402:
+        return "quota"  # Yetersiz bakiye / kredi
     return "other"
 
 
@@ -146,6 +158,7 @@ def _stream_once(
     temperature: float,
     on_token: Callable[[str], None] | None,
     include_usage: bool,
+    reasoning_effort: str | None,
 ) -> ChatResult:
     start = time.perf_counter()
     kwargs = dict(
@@ -157,18 +170,23 @@ def _stream_once(
     )
     if include_usage:
         kwargs["stream_options"] = {"include_usage": True}
+    if reasoning_effort:
+        # Düşünen modeller gizli akıl yürütmeye max_tokens'ı harcayıp boş cevap dönebiliyor
+        kwargs["reasoning_effort"] = reasoning_effort
 
     stream = client.chat.completions.create(**kwargs)
 
     parts: list[str] = []
     first_token_s: float | None = None
     usage = None
+    finish_reason = None
     try:
         for chunk in stream:
             if getattr(chunk, "usage", None):
                 usage = chunk.usage
             if not chunk.choices:
                 continue
+            finish_reason = chunk.choices[0].finish_reason or finish_reason
             delta = chunk.choices[0].delta
             piece = getattr(delta, "content", None) or ""
             if not piece:
@@ -205,7 +223,14 @@ def _stream_once(
         prompt_tokens=prompt_tokens,
         completion_tokens=completion_tokens,
         tokens_estimated=estimated,
+        truncated=finish_reason == "length",
     )
+
+
+def reasoning_effort() -> str | None:
+    """LLM_REASONING_EFFORT (none/low/medium/high). 'default' veya boşsa parametre gönderilmez."""
+    value = env("LLM_REASONING_EFFORT", "low").lower()
+    return None if value in ("", "default") else value
 
 
 def _call_model(
@@ -215,13 +240,20 @@ def _call_model(
     temperature: float,
     on_token: Callable[[str], None] | None,
 ) -> ChatResult:
-    try:
-        return _stream_once(client, model, messages, temperature, on_token, include_usage=True)
-    except openai.BadRequestError as exc:
-        # Bazı sağlayıcılar stream_options desteklemez; bir kez onsuz dene.
-        if "stream_options" in str(exc) or "include_usage" in str(exc):
-            return _stream_once(client, model, messages, temperature, on_token, include_usage=False)
-        raise
+    include_usage, effort = True, reasoning_effort()
+    for _ in range(3):
+        try:
+            return _stream_once(client, model, messages, temperature, on_token, include_usage, effort)
+        except openai.BadRequestError as exc:
+            # Desteklenmeyen isteğe bağlı parametreyi kaldırıp yeniden dene.
+            msg = str(exc)
+            if include_usage and ("stream_options" in msg or "include_usage" in msg):
+                include_usage = False
+            elif effort and "reasoning" in msg:
+                effort = None
+            else:
+                raise
+    return _stream_once(client, model, messages, temperature, on_token, include_usage, effort)
 
 
 def chat(
@@ -231,14 +263,19 @@ def chat(
     model: str | None = None,
     use_fallback: bool = True,
     on_token: Callable[[str], None] | None = None,
+    session_id: str | None = None,
 ) -> ChatResult:
     """Modeli çağırır ve cevabı döner.
 
     messages: [{"role": "user"|"assistant", "content": str}, ...]
+    session_id: Sohbete özgü kimlik; OpenCode Go'ya x-opencode-session olarak gider.
+        Verilmezse süreç genelindeki kimlik kullanılır.
     Sistem promptu yalnızca `system` rolünde gönderilir (SEC-03).
     Hata durumunda API anahtarını içermeyen bir LLMError fırlatır (SEC-16).
     """
     client = _get_client()
+    if session_id:
+        client = client.with_options(default_headers={"x-opencode-session": session_id})
     primary = model or default_model()
     temperature = clamp_temperature(temperature)
     api_messages = [{"role": "system", "content": system_prompt}] + [

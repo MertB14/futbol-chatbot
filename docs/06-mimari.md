@@ -33,7 +33,7 @@
           │ HTTPS (OpenAI uyumlu)
 ┌─────────▼──────────────────────────┐
 │ OpenCode Go                        │
-│ deepseek-v4.1-flash-free           │
+│ gpt-5.6-luna (ana), gemini-4-argon │
 └────────────────────────────────────┘
 
 run_tests.py ── tests/test_questions.json ──► llm_client.py ──► tests/results/
@@ -93,11 +93,14 @@ REQUEST_TIMEOUT_S = 30      # SEC-13
 ```bash
 OPENCODE_API_KEY=buraya-anahtarinizi-yazin
 LLM_BASE_URL=https://opencode.ai/zen/go/v1
-LLM_MODEL=deepseek-v4.1-flash-free           # Ana model
-LLM_FALLBACK_MODEL=<model-2>                  # Yedek model (FR-16), boş bırakılırsa kapalı
-LLM_COMPARE_MODELS=deepseek-v4.1-flash-free,<model-2>,<model-3>   # run_tests.py --models varsayılanı
+LLM_MODEL=gpt-5.6-luna                       # Ana model
+LLM_MODELS=gpt-5.6-luna,gemini-4-argon,claude-haiku-5-5   # Arayüzde seçilebilir modeller
+LLM_FALLBACK_MODEL=gemini-4-argon             # Yedek model (FR-16), boş bırakılırsa kapalı
+LLM_REASONING_EFFORT=low                      # Düşünen modellerin gizli akıl yürütmesi (boş/kesik cevabı önler)
+LLM_COMPARE_MODELS=gpt-5.6-luna,gemini-4-argon,claude-haiku-5-5   # run_tests.py --models varsayılanı
+LLM_JUDGE_MODEL=qwen4-max                     # evaluate.py hakem modeli (isteğe bağlı)
 ```
-> Base URL ve model kimlikleri OpenCode Go dokümanlarından doğrulanmalıdır.
+> Go uç noktası `x-opencode-session` başlığı olmadan isteği reddeder (400); `llm_client.py` her sohbet için ayrı bir kimlik gönderir.
 
 ### `llm_client.py`
 OpenCode Go, OpenAI uyumlu bir API sunar. Bu yüzden `openai` Python SDK'sı `base_url` parametresiyle kullanılır. Sağlayıcı değişirse yalnızca bu dosya ve `.env` değişir (NFR-04).
@@ -274,7 +277,7 @@ def check_rate_limit(request_times: list[float]) -> bool:
   "prompt_tokens": 512,
   "completion_tokens": 340,
   "tokens_estimated": false,
-  "model": "deepseek-v4.1-flash-free",
+  "model": "gpt-5.6-luna",
   "used_fallback": false,
   "error": null,
   "temperature": 0.3,
@@ -290,38 +293,45 @@ def check_rate_limit(request_times: list[float]) -> bool:
 
 | | |
 |---|---|
-| **Model** | DeepSeek V4.1 Flash (`deepseek-v4.1-flash-free`) |
-| **Sağlayıcı** | OpenCode Go |
-| **API** | OpenAI uyumlu (`openai` Python SDK, `base_url` ile) |
-### Seçim kriterleri ve gerekçe
+| **Ana model** | GPT-5.6 Luna (`gpt-5.6-luna`), prompt v2 |
+| **Yedek model** | Gemini 4 Argon (`gemini-4-argon`) |
+| **Sağlayıcı** | OpenCode Go (tek abonelik üzerinden birden çok model ailesi) |
+| **API** | OpenAI uyumlu (`openai` Python SDK, `base_url` ile; her istekte `x-opencode-session` başlığı) |
 
-| Kriter | Neden önemli | DeepSeek V4.1 Flash (OpenCode Go) |
+### Seçim kriterleri
+
+| Kriter | Neden önemli | Nasıl ölçüldü |
 |---|---|---|
-| **Maliyet** | Öğrenci projesi; testlerde yüzlerce istek atılacak (49 soru × 3 tekrar × 3 prompt sürümü × 3 model × birden fazla temperature) | Mevcut OpenCode Go aboneliğine dahil; ek ücret yok |
-| **Hız** | Sohbet arayüzünde ilk cevap < 10 sn hedefi (H6) | "Flash" sınıfı, düşük gecikme için tasarlanmış küçük/hızlı model |
-| **Entegrasyon** | Basit ve değiştirilebilir kod (NFR-04) | OpenAI uyumlu API: `openai` SDK ile yalnızca `base_url` değişiyor; streaming destekli |
-| **Bağlam penceresi** | Çok turlu sohbet geçmişi + sistem promptu | Geniş bağlam penceresi (kaynaklarda 1M token belirtiliyor); projenin ihtiyacının çok üzerinde |
-| **Açıklık** | Şeffaflık, sorumlu AI | Model ağırlıkları açık lisansla (MIT) yayımlanmış |
-| **Türkçe kalitesi** | Tüm arayüz ve cevaplar Türkçe (NFR-01) | ⏳ Kendi testlerimizle ölçülecek (bkz. 04 – doğruluk ve kullanışlılık puanları) |
+| **Maliyet** | Öğrenci projesi; testlerde 1000'den fazla istek atıldı | Tüm aday modeller mevcut OpenCode Go aboneliğine dahil; ek ücret yok. Abonelikte 5 saatlik kullanım sınırı var (testler sırasında doldu) |
+| **Doğruluk ve halüsinasyon** | Ana hedef (H1, H3) | 49 test sorusu × 3 tekrar, rubrik puanları ([04](04-test-plani.md) Bölüm 8.3) |
+| **Davranış** | Kapsam dışı, injection, etik (H4) | Davranış ve injection testleri |
+| **Hız** | Sohbet arayüzünde akıcılık (H6, K15) | İlk parça ve toplam süre (`run_tests.py` otomatik ölçer) |
+| **Entegrasyon** | Basit ve değiştirilebilir kod (NFR-04) | Tüm modeller aynı OpenAI uyumlu uç noktadan çağrılıyor; model değiştirmek `.env` içinde tek satır |
+| **Türkçe kalitesi** | Tüm cevaplar Türkçe (NFR-01) | Kullanışlılık puanı ve genel izlenim |
 
-### Alternatiflerle karşılaştırma
+### Ön seçim ve neden değişti
 
-| | DeepSeek V4.1 Flash (OpenCode Go) | OpenAI GPT | Google Gemini | Anthropic Claude |
-|---|---|---|---|---|
-| Ek maliyet | Yok (mevcut abonelik) | Kullandıkça öde | Sınırlı ücretsiz katman, sonra ücretli | Kullandıkça öde |
-| OpenAI uyumlu API | ✅ | ✅ (kendisi) | Kısmen (uyumluluk katmanı) | Kendi SDK'sı |
-| Hesap/anahtar hazır mı | ✅ | ❌ | ❌ | ❌ |
+Proje başında **DeepSeek V4.1 Flash** seçilmişti (düşük maliyet, hız, açık ağırlıklar). Gerçek API ile çalışmaya başlandığında iki engel çıktı:
+1. Ücretsiz sürümün (`deepseek-v4.1-flash-free`) kullanım limiti doldu (429).
+2. Abonelik kapsamındaki sürüm Avrupa/ABD dışında barındırıldığı için hesabın bölge ayarı *Global* yapılmadan kullanılamıyor (400).
 
-**Ön seçim:** Proje "temel düzey" bir LLM kullanımı gerektirdiğinden belirleyici kriterler maliyet, kolay entegrasyon ve hızdır. DeepSeek V4.1 Flash bu üç kriteri de karşıladığı için başlangıçta ana model olarak seçildi.
+Bu nedenle aday kümesi, OpenCode Go'da Avrupa/ABD'de barındırılan ve farklı sağlayıcı ailelerinden gelen üç modelle yeniden oluşturuldu: Claude Haiku 5.5 (Anthropic), GPT-5.6 Luna (OpenAI), Gemini 4 Argon (Google).
 
 ### Ölçüme dayalı son karar
 
-Ön seçim, OpenCode Go üzerindeki 3 modelin aynı test setiyle karşılaştırılmasıyla doğrulanır (bkz. [04-test-plani.md](04-test-plani.md), Bölüm 8). Tüm modeller aynı OpenAI uyumlu API'den çağrıldığı için model değiştirmek yalnızca `LLM_MODEL` değerini değiştirmek demek.
+| Model | Doğruluk | Tutarlılık | Kullanışlılık | Davranış | Halüsinasyon | İlk parça | Genel puan |
+|---|---|---|---|---|---|---|---|
+| Claude Haiku 5.5 (v1) | 3.87 | 3.73 | 3.96 | %94 | %44 | 0.8 sn | 3.75 |
+| GPT-5.6 Luna (v1) | 4.74 | 4.22 | 4.78 | %78 | %6 | 1.0 sn | 4.18 |
+| **GPT-5.6 Luna (v2)** | **4.84** | 4.37 | 4.76 | %89 | %6 | 1.0 sn | 4.46 |
+| Gemini 4 Argon (v1) | 4.77 | 4.41 | 4.84 | %100 | %8 | 6.2 sn (en fazla 26) | 4.67 |
 
-| Rol | Model | Gerekçe (ölçüm sonrası doldurulacak) |
+| Rol | Model | Gerekçe |
 |---|---|---|
-| Ana model (`LLM_MODEL`) | [karşılaştırma sonrası] | |
-| Yedek model (`LLM_FALLBACK_MODEL`) | [karşılaştırma sonrası] | |
+| Ana model (`LLM_MODEL`) | `gpt-5.6-luna` | Bilgi doğruluğu en yüksek (v2'de 4.84), en hızlı (ilk parça ~1 sn) ve en kısa/ucuz cevaplar (ort. 103 token). Davranış zaafları prompt v2 ile büyük ölçüde giderildi |
+| Yedek model (`LLM_FALLBACK_MODEL`) | `gemini-4-argon` | v1 genel puanda birinci ve tüm davranış testlerini geçti. Ama ilk parça ortalama 6.2 sn sürdüğü için ana model olarak kullanılabilirliği düşürür; yalnızca ana model hata verdiğinde devreye girer |
+
+Karar kuralından (en yüksek genel puan) bilinçli olarak ayrılındı; gerekçesi [04-test-plani.md](04-test-plani.md) Bölüm 8.4'te. Claude Haiku 5.5, 21 bilgi sorusunun 9'unda halüsinasyon ürettiği için elendi.
 
 > Not: Fiyat ve ücretsiz katman bilgileri sık değişir. Rapor yazılırken sağlayıcıların güncel sayfalarından kontrol edilmeli.
 
