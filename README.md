@@ -12,6 +12,7 @@ BM 445 – Üretken Yapay Zekâ ve Büyük Dil Modelleri dersi projesi.
 - **Ayarlanabilir temperature:** 0.0 (tutarlı) – 1.0 (yaratıcı)
 - **Konu dışı soruları reddetme** ve güncel bilgi uyarısı
 - **Güvenlik:** Prompt injection koruması, girdi doğrulama, hız sınırı
+- **Kişisel bilgi uyarısı:** Telefon, T.C. kimlik no, e-posta, IBAN, kart no veya adres yazılırsa modele gönderilmeden gizlenir ve kullanıcı uyarılır
 - **Geri bildirim:** Her cevaba 👍/👎
 - **Süre ve token bilgisi:** Her cevabın altında gösterilir
 - **Yedek model:** Ana model yanıt vermezse otomatik devreye girer

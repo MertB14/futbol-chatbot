@@ -183,6 +183,8 @@ if not st.session_state.messages:
 for i, msg in enumerate(st.session_state.messages):
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
+        if msg.get("pii"):
+            st.warning(security.personal_data_warning(msg["pii"]), icon="🔒")  # ETK-11
         if msg["role"] == "assistant" and msg.get("meta"):
             _render_assistant_meta(i, msg["meta"])
 
@@ -197,11 +199,14 @@ if raw_question is not None:
     elif not security.check_rate_limit(st.session_state.request_times):
         st.warning("Çok hızlı mesaj gönderiyorsun. Lütfen bir dakika bekle.")
     else:
-        question = result
+        # Kişisel bilgiler modele gönderilmeden gizlenir; geçmişte de gizli hâli tutulur (ETK-11)
+        question, pii = security.mask_personal_data(result)
         st.session_state.request_times.append(time.time())
-        st.session_state.messages.append({"role": "user", "content": question})
+        st.session_state.messages.append({"role": "user", "content": question, "pii": pii})
         with st.chat_message("user"):
             st.markdown(question)
+            if pii:
+                st.warning(security.personal_data_warning(pii), icon="🔒")
 
         with st.chat_message("assistant"):
             placeholder = st.empty()

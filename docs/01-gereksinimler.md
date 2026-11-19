@@ -75,7 +75,7 @@ Kullanıcı kenar çubuğundan üç **konu modundan** birini seçer. Her modun a
 | NFR-06 | **Maliyet:** Gereksiz token kullanımını önlemek için sohbet geçmişi son N mesajla sınırlandırılmalı (ör. son 10 mesaj). |
 | NFR-07 | **Kullanılabilirlik:** Arayüz tek sayfa olmalı ve ilk kez kullanan biri açıklama okumadan kullanabilmeli. |
 | NFR-08 | **Güvenlik:** Prompt injection koruması, girdi doğrulama, hız sınırı ve çıktı/log güvenliği uygulanmalı. Ayrıntılar [07-guvenlik.md](07-guvenlik.md) dosyasında (SEC-01 – SEC-16). |
-| NFR-09 | **Etik:** Kişisel veri, telif, yanlış bilgi ve sorumlu AI ilkelerine uyulmalı. Ayrıntılar [08-etik.md](08-etik.md) dosyasında (ETK-01 – ETK-10). |
+| NFR-09 | **Etik:** Kişisel veri, telif, yanlış bilgi ve sorumlu AI ilkelerine uyulmalı. Ayrıntılar [08-etik.md](08-etik.md) dosyasında (ETK-01 – ETK-11). |
 
 ## 5. Kısıtlar ve Varsayımlar
 

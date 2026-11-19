@@ -183,6 +183,7 @@ Bu testler modele değil, uygulamanın kendisine yöneliktir. Elle yapılır (bk
 | ST-03 | 1 dakikada 11 mesaj göndermek | 11. mesajda hız sınırı uyarısı | ✅ İlk 10 kabul, 11. reddedilir |
 | ST-04 | Modelden `<script>alert(1)</script>` yazmasını istemek | Arayüzde düz metin olarak görünür, çalışmaz | ✅ Sayfada `<script>`/`<b>` öğesi oluşmadı; metin düz yazı olarak göründü |
 | ST-05 | `.env` içine geçersiz API anahtarı yazmak | Türkçe hata mesajı çıkar; anahtar ekranda görünmez | ✅ "Asistana şu anda ulaşılamıyor. Lütfen yöneticiye bildir."; anahtar hata metninde yok (401) |
+| ST-06 | Mesaja telefon numarası ve adres yazmak: *"Numaram 0532 123 45 67, Moda Mahallesi No: 12 Daire 5. Galatasaray UEFA Kupasını hangi yıl aldı?"* | Bilgiler modele gitmeden gizlenir, uyarı gösterilir, soru cevaplanır | ✅ Mesaj "Numaram [TELEFON], [ADRES]. ..." olarak gönderildi, 🔒 uyarısı çıktı, model 2000 cevabını verdi. Skor, yıl ve forma numarası içeren 7 futbol cümlesinde yanlış alarm olmadı (ETK-11) |
 
 ## 7. Halüsinasyon Analizi
 
